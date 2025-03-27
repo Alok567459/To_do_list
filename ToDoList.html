@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to_do_list</title>
+</head>
+<style>
+body {
+  /* padding: 25px; */
+  background-color: white;
+  color: black;
+  font-size: 25px;
+  background-color: beige;
+}
+.lists{
+    text-decoration: line-through;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+.navigation{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(85, 196, 211);
+    margin: 0px;
+    
+}
+.task{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    column-gap: 20px;
+}
+/* ul{
+    list-style-type: none;
+} */
+li{
+    background-color: grey;
+    text-align: start;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+</style>
+<body>
+    <div class="navigation">
+        <h1>a Simple To-Do List</h1>
+        <div>
+            <button onclick="myFunction()" style="width: 200px;">Toggle</button>
+        </div>
+    </div>
+
+    <div class="task">
+        <div class="task1"><input type="text"  placeholder="Add your task" id="task1"></div>
+        <button style="width: 100px;" id="button">Add Task</button>
+    </div>
+    <ul id="tasklist">
+
+    </ul>
+
+    <script>
+        function myFunction(){
+            let darkmode=document.body;
+            darkmode.classList.toggle("dark-mode")//Toggles a class (adds it if it's not present, removes it if it is).
+        } 
+        let getTask=document.getElementById('button')
+        getTask.addEventListener('click',addTask)
+        // let button=document.createElement("button");
+        document.addEventListener('keypress',function(event){
+                if(event.key === "Enter"){
+                    getTask.click()
+                }
+            })
+        function addTask(){
+            let taskinput=document.getElementById('task1');
+            let tasktext=taskinput.value.trim();
+          if(tasktext===""){
+            alert("please enter a task:")
+          }
+          else{
+            let tasklist=document.getElementById('tasklist');
+            let li=document.createElement("li");
+            li.textContent=tasktext;
+
+
+            let button=document.createElement("button");
+            button.textContent="Delete";
+            button.classList.add("deletebutton");
+           
+            li.appendChild(button);
+            button.addEventListener('click',function(){
+                li.remove();
+            })
+
+            li.addEventListener('click',function(){
+                li.classList.add("lists");
+            })
+
+
+            tasklist.appendChild(li); // Append the task to the list
+            taskinput.value = ""; // Clear the input field
+
+          }}
+    </script>
+</body>
+</html>
